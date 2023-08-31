@@ -11,7 +11,7 @@ def setupConfigurations():
     
     BASE_DIR                 = Path(__file__).resolve().parent.parent
 
-    TRANSLATION_ISO_CODE     = "ar"
+    TRANSLATION_ISO_CODE     = "en"
 
     LANGUAGE_FILE            = open(BASE_DIR / "settings" / f'translations/{TRANSLATION_ISO_CODE}.json')
 
