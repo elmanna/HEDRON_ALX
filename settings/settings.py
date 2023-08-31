@@ -18,10 +18,6 @@ def setupConfigurations():
     USER_EMAIL    = "" # your alx account email address 
     USER_PASSWORD = "", # your alx account password 
 
-    if(len(USER_EMAIL) == 0 or len(USER_PASSWORD) == 0):
-        msg = json.load(LANGUAGE_FILE)["fillAccountCredentials"]
-        raise ValueError(msg)
-
     settings.configure(
         INSTALLED_APPS = ["hedron",],
         DATABASES = {

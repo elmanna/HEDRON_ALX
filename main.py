@@ -11,6 +11,11 @@ BASE_DIR = Path(__file__).resolve().parent
 def main():
     from django.conf import settings as s
 
+    if(len(s.EMAIL) == 0 or len(s.PASSWORD) == 0):
+        print(Fore.RED + s.LANGUAGE["fillAccountCredentials"] + Style.BRIGHT)
+        return
+
+
     print(Fore.WHITE + s.LANGUAGE["wakeUpHedron"] + Style.BRIGHT)
     wakeUp()
 
