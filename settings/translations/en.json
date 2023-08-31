@@ -1,0 +1,10 @@
+{
+    "self": "Hedron",
+    "wakeUpHedron": "Wake Up Neo!",
+    "WakingUP": "Waking UP...",
+    "SessionCreated": "Session Created...",
+    "CanNotLogin": "Can't login i have got an exception!",
+    "TryingToLogIn": "Logging In!",
+    "LoggedInSuccessfully": "Logged in successfully!",
+    "fillAccountCredentials": "Please define-in USER_EMAIL & USER_PASSWORD variables in settings.py file!"
+}

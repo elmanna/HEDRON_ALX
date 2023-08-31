@@ -1,0 +1,9 @@
+{
+    "wakeUpHedron": "!إصحى يا هيدرون",
+    "WakingUP": " ...أنا أصحو الآن",
+    "SessionCreated": ".تم إنشاء الجـلسـة",
+    "CanNotLogin": "!لم أستطع تسجيل الدخول، هنالك خطأ",
+    "TryingToLogIn": "!جاري تسجيل الدخول",
+    "LoggedInSuccessfully": "!تم تسجيل الدخول بنجاح",
+    "fillAccountCredentials": "! الرجاء كتابة البريد الإلكتروني و كلمة المرور في المتغييرات \n (USER_EMAIL & USER_PASSWORD) \n في ملف الإعدادات (settings.py)"
+}
