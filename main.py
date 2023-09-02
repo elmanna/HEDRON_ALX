@@ -17,11 +17,15 @@ def main():
     wakeUp()
 
 def setup(flags: bool = False, alx_email: str = "", alx_password: str = "", language_iso_code: str = "en"):
-    import settings.settings as s 
+    import settings.settings as sGlobal
 
-    if(len(s.USER_EMAIL) == 0 or len(s.USER_PASSWORD) == 0):
+    if(len(sGlobal.USER_EMAIL) == 0 or len(sGlobal.USER_PASSWORD) == 0):
         if not flags:
-            print(Fore.RED + s.LANGUAGE["fillAccountCredentials"] + Style.BRIGHT)
+            print(
+                 Fore.RED
+                 + "Please define-in USER_EMAIL & USER_PASSWORD variables"
+                 + "in settings.py file!\nor pass them directly using flags" 
+                 + Style.BRIGHT)
             return
         setupConfigurations(alx_email=alx_email, alx_password=alx_password, language_iso_code=language_iso_code)
     else:
