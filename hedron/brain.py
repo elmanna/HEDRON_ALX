@@ -19,6 +19,7 @@ class HedronALX():
 
     def __say__(self, message, colour: ansi.AnsiFore=Fore.WHITE, style: ansi.AnsiStyle=Style.NORMAL):
         print(colour + message + style)
+        print(Style.RESET_ALL)
 
     def loginMySelfIntoALXIntranet(self):
         self.__say__(s.LANGUAGE["TryingToLogIn"], colour=Fore.YELLOW)
@@ -30,7 +31,10 @@ class HedronALX():
         else:
             self.__say__(s.LANGUAGE["LoggedInSuccessfully"], colour=Fore.GREEN, style=Style.BRIGHT)
 
+    def sleep(self):
+        self.SESSION.close()
 
 def brain():
     me = HedronALX()
     me.loginMySelfIntoALXIntranet()
+    me.sleep()

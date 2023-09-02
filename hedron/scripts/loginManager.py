@@ -2,6 +2,7 @@ from colorama import Fore, Style
 from bs4 import BeautifulSoup 
 import asyncio
 import json
+from django.conf import settings as s
 
 def amILoggedIn(alx_planning_url, SESSION) -> bool:
     response = SESSION.request(method="get", url=alx_planning_url, allow_redirects=False)
@@ -37,12 +38,23 @@ async def login(email, password, alx_auth_url, SESSION) -> bool:
 
 async def commandToLogin(email, password, alx_url,
                           alx_planning_path, alx_auth_path, SESSION) -> bool:
+
+    login_retries      = 2
+    login_retries_flag = False
+
     try:
         isLoggedIn = amILoggedIn(alx_url + alx_planning_path, SESSION)
         while isLoggedIn == False:
+           if(login_retries == 0):
+               login_retries_flag = True
+               break
+           login_retries -= 1
            await login(email, password, alx_url + alx_auth_path, SESSION)
            isLoggedIn = amILoggedIn(alx_url + alx_planning_path, SESSION)
            
     except Exception as e:
         return [False, e.__str__()]
+    
+    if(login_retries_flag):
+        return [False, s.LANGUAGE["wrongPassword"]]
     return [True, None]
