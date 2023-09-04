@@ -11,8 +11,8 @@ from .scripts.loginManager import (commandToLogin as login,)
 class HedronALX():
     def __init__(self):
         self.SESSION  = None
-        
-        self.__say__(s.LANGUAGE["WakingUP"], colour=Fore.CYAN, style=Style.BRIGHT)
+        self._PROMPT_ = ""
+        self.__say__("\n" + s.LANGUAGE["WakingUP"], colour=Fore.CYAN, style=Style.BRIGHT)
 
         self.SESSION = requests.session()
         self.__say__(s.LANGUAGE["SessionCreated"], colour=Fore.CYAN, style=Style.BRIGHT)
@@ -20,6 +20,9 @@ class HedronALX():
     def __say__(self, message, colour: ansi.AnsiFore=Fore.WHITE, style: ansi.AnsiStyle=Style.NORMAL):
         print(colour + message + style)
         print(Style.RESET_ALL)
+
+    def __help__(self):
+        pass
 
     def loginMySelfIntoALXIntranet(self):
         self.__say__(s.LANGUAGE["TryingToLogIn"], colour=Fore.YELLOW)
@@ -31,10 +34,22 @@ class HedronALX():
         else:
             self.__say__(s.LANGUAGE["LoggedInSuccessfully"], colour=Fore.GREEN, style=Style.BRIGHT)
 
+    def prompt(self):
+        self.__say__(f"[{s.LANGUAGE['self']} - 🤖] ->  {s.LANGUAGE['welcome']}")
+
+        while self._PROMPT_ != "shutdown":
+            self._PROMPT_ = str(input(f"[{s.LANGUAGE['self']} - 🤖]: "))
+
+        
+        self.__say__(f"[{s.LANGUAGE['self']} - 🤖] ->  {s.LANGUAGE['bye']}")
+
     def sleep(self):
         self.SESSION.close()
 
-def brain():
+
+def brain(prompt:bool=False):
     me = HedronALX()
     me.loginMySelfIntoALXIntranet()
+    if(prompt):
+        me.prompt()
     me.sleep()

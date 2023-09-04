@@ -8,5 +8,6 @@
     "TryingToLogIn": "Logging In!",
     "LoggedInSuccessfully": "Logged in successfully!",
     "fillAccountCredentials": "Please define-in USER_EMAIL & USER_PASSWORD variables in settings.py file! \n or pass them directly using flags",
-    "wrongPassword": "wrong password (excessive retries may lock your account!)"
+    "wrongPassword": "wrong password (excessive retries may lock your account!)",
+    "bye": "bye..."
 }

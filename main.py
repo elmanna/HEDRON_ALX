@@ -9,14 +9,14 @@ init()
 
 BASE_DIR = Path(__file__).resolve().parent
 
-def main():
+def main(conversation: bool = False):
     from hedron.brain import brain as wakeUp
     from django.conf import settings as s
 
     print(Fore.WHITE + s.LANGUAGE["wakeUpHedron"] + Style.BRIGHT)
-    wakeUp()
+    wakeUp(conversation)
 
-def setup(flags: bool = False, alx_email: str = "", alx_password: str = "", language_iso_code: str = "en"):
+def setup(conversation: bool = False, flags: bool = False, alx_email: str = "", alx_password: str = "", language_iso_code: str = "en"):
     import settings.settings as sGlobal
 
     if(len(sGlobal.USER_EMAIL) == 0 or len(sGlobal.USER_PASSWORD) == 0):
@@ -25,7 +25,8 @@ def setup(flags: bool = False, alx_email: str = "", alx_password: str = "", lang
                  Fore.RED
                  + "Please define-in USER_EMAIL & USER_PASSWORD variables"
                  + "in settings.py file!\nor pass them directly using flags" 
-                 + Style.BRIGHT)
+                 + Style.BRIGHT
+                )
             return
         setupConfigurations(alx_email=alx_email, alx_password=alx_password, language_iso_code=language_iso_code)
     else:
@@ -33,15 +34,17 @@ def setup(flags: bool = False, alx_email: str = "", alx_password: str = "", lang
 
     # execute_from_command_line() # """ uncomment this line to 
     # to use the django command line (i.e manipulate DB & so on...) from within terminal"""
-    main()
+    main(conversation=conversation)
 
 
 def helpMenu():
     print(
         Fore.WHITE
-        + "\n[Flags]\n\n  --email [alx_email] \n  --password [alx_password]" 
-        + "\n\n  --language [language_iso_code]"
-        + "\n       available translations; [ Arabic (ar), English (en) ]"
+        + "\n[Options/Flags]\n\n  --email\t\t[alx_email] \n  --password\t\t[alx_password]" 
+        + "\n\n  --language\t\t[language_iso_code]\tSet translation"
+        + "\n\tavailable translations: [ Arabic (ar), English (en) ]"
+        + "\n\n  -c, --conversation\t\t\t\tPrompting session with headron"
+        + "\n\n  -h, --help\t\t\t\t\tShows this menu"
         + Style.BRIGHT
     )
     exit(0)
@@ -52,11 +55,12 @@ def hedronCommandLine():
     language_iso_code: str               = ""
     crede_passby_command_line: bool = False
     abortFlag: bool                      = False
+    conversation: bool                   = False
 
     email_regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
 
     for index, flag in enumerate(sys.argv):
-        if flag.startswith("--h"):
+        if flag == "--help" or flag == "-h":
             helpMenu()
         
         if flag == "--email":
@@ -94,6 +98,9 @@ def hedronCommandLine():
                 print(Fore.RED + "\n[Error]\n\n Please enter [language_iso_code] in right format" + Style.BRIGHT)
                 abortFlag = True
 
+        if flag == "--conversation" or flag == "-c":
+            conversation = True
+
     if(abortFlag):
         helpMenu()
 
@@ -107,15 +114,15 @@ def hedronCommandLine():
 
     if(len(sys.argv) > 1):
         if(len(language_iso_code) > 0):
-            setup(flags=True, alx_email=alx_email,
+            setup(conversation=conversation, flags=True, alx_email=alx_email,
                    alx_password=alx_password, language_iso_code=language_iso_code)
         else:
-            setup(flags=True, alx_email=alx_email, alx_password=alx_password)
+            setup(conversation=conversation, flags=True, alx_email=alx_email, alx_password=alx_password)
     else:
         if(len(language_iso_code) > 0):
-            setup(language_iso_code=language_iso_code)
+            setup(conversation=conversation, language_iso_code=language_iso_code)
         else:
-            setup()
+            setup(conversation=conversation)
 
 if __name__ == "__main__":
     hedronCommandLine()

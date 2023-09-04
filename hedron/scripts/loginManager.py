@@ -39,7 +39,7 @@ async def login(email, password, alx_auth_url, SESSION) -> bool:
 async def commandToLogin(email, password, alx_url,
                           alx_planning_path, alx_auth_path, SESSION) -> bool:
 
-    login_retries      = 2
+    login_retries      = 2 #only 2 login attempts
     login_retries_flag = False
 
     try:

@@ -34,8 +34,10 @@ def setupConfigurations(alx_email: str = "", alx_password: str = "", language_is
     if(len(USER_PASSWORD) == 0):
         USER_PASSWORD = alx_password # pass it in command line
         #or replace with your alx account password 
-
-    LANGUAGE_FILE            = open(BASE_DIR / "settings" / f'translations/{TRANSLATION_ISO_CODE}.json')
+    try:
+        LANGUAGE_FILE            = open(BASE_DIR / "settings" / f'translations/{TRANSLATION_ISO_CODE}.json')
+    except Exception as e:
+        LANGUAGE_FILE            = open(BASE_DIR / "settings" / f'translations/en.json')
 
     settings.configure(
         INSTALLED_APPS = ["hedron",],
